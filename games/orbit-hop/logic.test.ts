@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { loadClassicScript } from '../../src/test/loadClassicScript';
+import { loadClassicScript } from '../../tests/helpers/loadClassicScript';
 
 type Item = { angle: number; orbit: 0 | 1 };
 type State = {
