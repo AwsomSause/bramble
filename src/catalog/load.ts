@@ -3,6 +3,7 @@
  * whole visit; failed loads are not cached, so Retry really tries again.
  */
 import { useCallback, useEffect, useState } from 'react';
+import { draftSummaries, getDraftDetails, useDrafts } from '../features/admin/drafts';
 import type { GameDetails, GameSummary } from './schema';
 
 class NotFound extends Error {}
@@ -35,12 +36,13 @@ const isDetails = (v: unknown): v is GameDetails =>
 
 type Status = 'loading' | 'ready' | 'error' | 'notfound';
 
-function useResource<T>(url: string, check: (v: unknown) => v is T) {
+function useResource<T>(url: string | null, check: (v: unknown) => v is T) {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<{ key: string; status: Status; data?: T }>({ key: '', status: 'loading' });
   const key = `${url}#${attempt}`;
 
   useEffect(() => {
+    if (url === null) return; // nothing to fetch (e.g. a draft is being shown instead)
     let live = true;
     load(url, check).then(
       (data) => live && setState({ key, status: 'ready', data }),
@@ -58,8 +60,13 @@ function useResource<T>(url: string, check: (v: unknown) => v is T) {
 }
 
 export function useCatalogIndex(): { status: 'loading' | 'ready' | 'error'; games: GameSummary[]; retry(): void } {
+  useDrafts(); // re-render when a draft is added or removed
   const r = useResource(`${import.meta.env.BASE_URL}catalog/index.json`, isArray);
-  return { status: r.status === 'notfound' ? 'error' : r.status, games: r.data ?? [], retry: r.retry };
+  const drafts = draftSummaries();
+  const draftSlugs = new Set(drafts.map((d) => d.slug));
+  // Drafts (this browser only) appear first; a draft shadows a published game of the same slug.
+  const games = [...drafts, ...(r.data ?? []).filter((g) => !draftSlugs.has(g.slug))];
+  return { status: r.status === 'notfound' ? 'error' : r.status, games, retry: r.retry };
 }
 
 export function useGameDetails(slug: string): {
@@ -67,8 +74,11 @@ export function useGameDetails(slug: string): {
   game?: GameDetails;
   retry(): void;
 } {
+  useDrafts();
+  const draft = getDraftDetails(slug);
   const valid = /^[a-z0-9-]+$/.test(slug);
-  const r = useResource(`${import.meta.env.BASE_URL}catalog/games/${valid ? slug : '_invalid_'}.json`, isDetails);
+  const r = useResource(draft ? null : `${import.meta.env.BASE_URL}catalog/games/${valid ? slug : '_invalid_'}.json`, isDetails);
+  if (draft) return { status: 'ready', game: draft, retry: () => {} };
   return { status: r.status, game: r.data, retry: r.retry };
 }
 

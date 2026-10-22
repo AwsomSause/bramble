@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { ErrorBox } from '../../app/ErrorBox';
 import { usePageTitle } from '../../app/usePageTitle';
+import { getDraft } from '../admin/drafts';
+import { openAdmin } from '../admin/useAdmin';
 import { buildFrameAttrs, parseGameMessage, reportIssueUrl } from '../../catalog/frame';
 import { useGameDetails } from '../../catalog/load';
 import { parseAspectRatio, type GameDetails } from '../../catalog/schema';
@@ -30,12 +32,24 @@ function Player({ game }: { game: GameDetails }) {
   const attrs = buildFrameAttrs(game, import.meta.env.BASE_URL);
   const fav = isFavorite(game.slug);
 
+  // A draft file game isn't on disk yet — play it from a blob built from its stored HTML.
+  const draftHtml = game.source.type === 'file' ? getDraft(game.slug)?.html : undefined;
+  const blobSrc = useMemo(() => (draftHtml !== undefined ? URL.createObjectURL(new Blob([draftHtml], { type: 'text/html' })) : undefined), [draftHtml]);
+  useEffect(() => () => {
+    if (blobSrc) URL.revokeObjectURL(blobSrc);
+  }, [blobSrc]);
+
   useEffect(() => push(game.slug), [game.slug, push]);
 
-  // Only trust messages that really come from this game's frame, and only our two message shapes.
+  // Only trust messages that really come from this game's frame, and only our known shapes.
   const onMessage = useCallback(
     (e: MessageEvent) => {
       if (!frameRef.current || e.source !== frameRef.current.contentWindow) return;
+      // A secret "knock" (the raspberry) just reveals the admin login; access still needs the password.
+      if ((e.data as { type?: unknown })?.type === 'bramble:knock') {
+        openAdmin();
+        return;
+      }
       const msg = parseGameMessage(e.data);
       if (msg?.type === 'bramble:ready') onReadyMessage();
       if (msg?.type === 'bramble:score') recordBest(msg.score);
@@ -103,7 +117,7 @@ function Player({ game }: { game: GameDetails }) {
               <iframe
                 key={frameKey}
                 ref={frameRef}
-                src={attrs.src}
+                src={blobSrc ?? attrs.src}
                 title={attrs.title}
                 sandbox={attrs.sandbox}
                 allow={attrs.allow || undefined}

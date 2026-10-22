@@ -53,3 +53,14 @@
     right: 2px;
   }
 }
+.draftBadge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: bold;
+  color: #fff;
+  background: var(--leaf);
+  border-radius: 10px;
+}

@@ -20,7 +20,8 @@
     "add-game": "tsx scripts/add-game.ts",
     "check-embeds": "tsx scripts/check-embeds.ts",
     "size": "tsx scripts/size-check.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "set-admin": "tsx scripts/set-admin.ts"
   },
   "dependencies": {
     "react": "19.3.1",

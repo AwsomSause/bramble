@@ -1,0 +1,149 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 12px;
+  overflow: auto;
+  background: rgba(23, 12, 30, 0.55);
+}
+.sheet {
+  width: 100%;
+  max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+.sheetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--boxbar-grad);
+  border-bottom: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
+}
+.sheetBody {
+  padding: 14px;
+}
+.login,
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.login label,
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-weight: bold;
+  font-size: 0.92rem;
+}
+.form input,
+.form textarea,
+.form select,
+.login input,
+.tokenBox input {
+  font: inherit;
+  font-weight: normal;
+  padding: 6px 8px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid #a9a4b3;
+  border-radius: var(--radius);
+}
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.row > label {
+  flex: 1;
+  min-width: 160px;
+}
+.controls {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+}
+.controls legend {
+  font-weight: bold;
+  font-size: 0.92rem;
+}
+.inline {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 6px !important;
+  font-weight: normal !important;
+}
+.softnote {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.error {
+  margin: 0;
+  color: #a8123f;
+  font-weight: bold;
+}
+.ok {
+  color: var(--leaf);
+  font-weight: bold;
+}
+.drafts {
+  margin-top: 18px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+.tokenBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.draftList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.draftList li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--border);
+}
+.draftTitle {
+  font-weight: bold;
+  margin-right: auto;
+}
+.draftActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.draftStatus {
+  flex-basis: 100%;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+}
+.linkBtn {
+  padding: 0;
+  font: inherit;
+  color: var(--link);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}

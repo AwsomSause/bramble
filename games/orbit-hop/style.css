@@ -89,3 +89,22 @@ kbd {
 .hidden {
   display: none;
 }
+
+/* Hidden-in-plain-sight raspberry: opens Bramble's admin login in the parent page. */
+#berryKnock {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  min-width: 0;
+  min-height: 0;
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  opacity: 0.18;
+  cursor: default;
+}
+#berryKnock:hover {
+  opacity: 0.4;
+}

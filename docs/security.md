@@ -29,7 +29,13 @@ This document records what we protect against, how, and where each protection is
 | 11 | **Supply chain.** | Exact versions in `package.json`, a committed lockfile, `npm ci` in CI, `npm audit --audit-level=high` in CI, and Dependabot weekly. Runtime dependencies are just React, React DOM, React Router and Zod. | `.github/workflows/ci.yml`; `.github/dependabot.yml` |
 | 12 | **Privacy.** | Nothing leaves the browser. No cookies, analytics, accounts or server. The About → Privacy section says so, and Settings → "Clear my data" deletes everything. | `settings.test.tsx`; About page test |
 | 12b | **A broken page or a code file missing mid-deploy blanks the site.** | An error boundary around every page shows "Something went wrong" with a Reload button. The schema rejects impossible values such as a `16:0` aspect ratio. | `ErrorBoundary.test.tsx`; e2e "page file is missing"; `schema.test.ts` |
+| 14 | **The hidden admin panel.** | Gated by a client-side check of a salted SHA-256 fingerprint of username+password+school; no plaintext in the repo. Documented clearly as a *soft lock*, not real security. Draft games live only in the adding browser (localStorage) and run in the same sandbox as any game. | `credentials.test.ts`, `admin.test.tsx`; e2e `admin.spec.ts` |
+| 15 | **GitHub publish token.** | Publishing via a pasted fine-grained token is enabled **only on local dev hosts** (`canPublishHere`), so the token never lives on the public origin. It is sent only to api.github.com in the Authorization header, never a URL; session-only by default; a fine-grained repo-scoped token limits blast radius to this one repo. | `github.test.ts` (origin gate, header, 401 handling) |
 | 13 | **Crashes from bad stored data.** | Every read of storage is wrapped: bad JSON, wrong types, blocked storage or a full disk all fall back to defaults. | `storage.test.ts`; `stores.test.tsx`; `settings.test.tsx` |
+
+## Admin panel & publishing
+
+The owner-only "Add Game" panel (reached via the raspberry on the Orbit Hop start screen) uses a **soft lock**: on a static site the login code and the stored fingerprint are public, so it deters casual access but is not real security. It is documented as such in `docs/admin.md`. Draft games are per-browser only. Direct publishing uses the owner's own GitHub fine-grained token (repo-scoped, Contents only) and is restricted to local dev hosts so the token is never present on the live public site; elsewhere the panel only exports files to commit by hand.
 
 ## Known limits (accepted for now)
 
