@@ -6,6 +6,7 @@ A berry-themed patch of browser games for friends, styled like a 2008-era websit
 - **Keep track:** favorites, recently played, best scores. All are saved in your browser only.
 - **Play safely:** every game runs in a locked-down frame (see [docs/security.md](docs/security.md)).
 - **Add games easily:** one command for an HTML file, a folder, or a link (see [docs/adding-games.md](docs/adding-games.md)).
+- **Bramble Buddy:** adopt virtual pets with your own imported picture (see [docs/pet.md](docs/pet.md)).
 - **Make it yours:** Classic or Midnight theme, optional backgrounds, reduced motion, low-performance mode, text size.
 
 It's a plain static website: no server, no database, no accounts. It's hosted free on GitHub Pages.

@@ -109,6 +109,11 @@ export function Layout() {
                 Favorites
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/pet" className={styles.tab}>
+                Pet
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
