@@ -23,7 +23,7 @@ export function summary(slug: string, title: string, over: Partial<GameSummary> 
 
 function Probe() {
   const l = useLocation();
-  return <output data-testid="location">{l.pathname + l.search}</output>;
+  return <p data-testid="location">{l.pathname + l.search}</p>;
 }
 
 /** Serves fake catalog files to the app via a stubbed fetch. */
