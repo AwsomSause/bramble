@@ -6,8 +6,11 @@ import { useCallback, useEffect, useSyncExternalStore } from 'react';
 import { KEYS } from '../../lib/stores';
 import { readJSON, writeJSON } from '../../lib/storage';
 
+export const THEMES = ['classic', 'midnight', 'living', 'checker', 'blade'] as const;
+export type Theme = (typeof THEMES)[number];
+
 export type Settings = {
-  theme: 'classic' | 'midnight';
+  theme: Theme;
   background: 'plain' | 'berries' | 'leaves';
   motion: 'system' | 'reduce' | 'full';
   lowPerf: boolean;
@@ -20,7 +23,7 @@ const isSettings = (v: unknown): v is Settings => {
   if (!v || typeof v !== 'object') return false;
   const s = v as Record<string, unknown>;
   return (
-    ['classic', 'midnight'].includes(s.theme as string) &&
+    (THEMES as readonly string[]).includes(s.theme as string) &&
     ['plain', 'berries', 'leaves'].includes(s.background as string) &&
     ['system', 'reduce', 'full'].includes(s.motion as string) &&
     typeof s.lowPerf === 'boolean' &&
