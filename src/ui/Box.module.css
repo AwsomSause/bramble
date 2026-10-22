@@ -1,0 +1,19 @@
+.box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+}
+.bar {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text);
+  background: var(--boxbar-grad);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.body {
+  padding: 10px;
+}

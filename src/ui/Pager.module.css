@@ -1,0 +1,46 @@
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 18px 0 8px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30px;
+  padding: 2px 4px;
+  font-weight: bold;
+}
+/* each page number sits under a little berry */
+.item::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  margin-bottom: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e9c6f5 0 18%, var(--bramble) 22% 70%, var(--blackberry) 100%);
+}
+.current {
+  color: var(--text);
+}
+.current::before {
+  background: radial-gradient(circle at 35% 30%, #ffd1de 0 18%, var(--raspberry) 22% 70%, #7d0d30 100%);
+  transform: scale(1.25);
+}
+.edge::before {
+  background: none;
+  border-radius: 0;
+}
+.gap {
+  padding: 2px 4px;
+  color: var(--text-dim);
+}
+@media (pointer: coarse) {
+  .item {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
