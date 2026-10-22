@@ -77,7 +77,7 @@ function Player({ game }: { game: GameDetails }) {
             ref={viewportRef}
             data-testid="viewport"
             className={`${styles.viewport} ${fs.expanded ? styles.expanded : ''}`}
-            style={playable ? { aspectRatio: String(ratio), maxWidth: `calc((100vh - 160px) * ${ratio})` } : undefined}
+            style={playable ? { aspectRatio: String(ratio), maxWidth: `calc((100vh - 220px) * ${ratio})` } : undefined}
           >
             {state === 'unavailable' && (
               <div className={styles.notice}>

@@ -28,7 +28,7 @@
 .viewport {
   position: relative;
   width: 100%;
-  max-height: calc(100vh - 160px);
+  max-height: calc(100vh - 220px);
   margin: 0 auto;
   background: #120a17;
   border: 1px solid var(--border);

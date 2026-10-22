@@ -1,0 +1,91 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #170c1e;
+  color: #f6eefa;
+  font-family: Arial, Helvetica, sans-serif;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hud {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  pointer-events: none;
+}
+.hud .best {
+  margin-right: auto;
+  opacity: 0.8;
+}
+.hud button {
+  pointer-events: auto;
+}
+button {
+  min-width: 44px;
+  min-height: 44px;
+  font: bold 16px Arial, sans-serif;
+  color: #3b1d4f;
+  background: linear-gradient(#ffffff, #e2dbe8);
+  border: 1px solid #b9aec4;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:focus-visible {
+  outline: 3px solid #f0a400;
+  outline-offset: 2px;
+}
+button.big {
+  padding: 8px 26px;
+  font-size: 18px;
+  color: #fff;
+  background: linear-gradient(#e0386a, #c4194f 55%, #a8123f);
+  border-color: #8f1037;
+}
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background: rgba(23, 12, 30, 0.82);
+}
+.panel h1,
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #e9c6f5;
+}
+.panel p {
+  max-width: 360px;
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+.keys {
+  font-size: 14px;
+  opacity: 0.85;
+}
+kbd {
+  padding: 1px 5px;
+  border: 1px solid #8d7a9c;
+  border-radius: 3px;
+  background: #2b1a36;
+}
+.hidden {
+  display: none;
+}
