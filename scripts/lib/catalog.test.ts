@@ -163,6 +163,11 @@ describe('buildCatalog', () => {
     expect(JSON.parse(readFileSync(join(out, 'catalog/games/orbit-hop.json'), 'utf8')).embedBlocked).toBe(false);
     expect(existsSync(join(out, 'catalog/games/h.json'))).toBe(false);
     expect(existsSync(join(out, 'games/orbit-hop/index.html'))).toBe(true);
+    const credits = JSON.parse(readFileSync(join(out, 'catalog/credits.json'), 'utf8'));
+    expect(credits).toEqual([
+      { slug: 'e', title: 'Alpha', author: 'Bramble', license: 'Original work' },
+      { slug: 'orbit-hop', title: 'Orbit Hop', author: 'Bramble', license: 'Original work' },
+    ]);
   });
 
   test('throws when the catalog has errors', async () => {

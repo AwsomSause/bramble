@@ -148,6 +148,15 @@ export async function buildCatalog(
   await mkdir(join(outDir, 'catalog/games'), { recursive: true });
 
   await writeFile(join(outDir, 'catalog/index.json'), serializeIndex(visible.map(toSummary)));
+  const credits = visible.map((g) => ({
+    slug: g.slug,
+    title: g.title,
+    author: g.attribution.author,
+    ...(g.attribution.url ? { authorUrl: g.attribution.url } : {}),
+    license: g.license.name,
+    ...(g.license.url ? { licenseUrl: g.license.url } : {}),
+  }));
+  await writeFile(join(outDir, 'catalog/credits.json'), JSON.stringify(credits));
   for (const g of visible) {
     const details: GameDetails = { ...g, embedBlocked: embedStatus[g.slug] === 'blocked' };
     await writeFile(join(outDir, 'catalog/games', `${g.slug}.json`), JSON.stringify(details));

@@ -71,3 +71,11 @@ export function useGameDetails(slug: string): {
   const r = useResource(`${import.meta.env.BASE_URL}catalog/games/${valid ? slug : '_invalid_'}.json`, isDetails);
   return { status: r.status, game: r.data, retry: r.retry };
 }
+
+export type Credit = { slug: string; title: string; author: string; authorUrl?: string; license: string; licenseUrl?: string };
+const isCredits = (v: unknown): v is Credit[] => Array.isArray(v);
+
+export function useCredits(): { status: 'loading' | 'ready' | 'error'; credits: Credit[]; retry(): void } {
+  const r = useResource(`${import.meta.env.BASE_URL}catalog/credits.json`, isCredits);
+  return { status: r.status === 'notfound' ? 'error' : r.status, credits: r.data ?? [], retry: r.retry };
+}

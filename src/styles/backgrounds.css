@@ -1,0 +1,35 @@
+/* Optional page backgrounds (Settings → Background). Drawn behind everything. */
+:root[data-bg='berries'] body,
+:root[data-bg='leaves'] body {
+  background-attachment: fixed;
+}
+:root[data-bg='berries'] body {
+  background-image: url('/bg/berries.svg');
+  background-size: 140px 140px;
+}
+:root[data-bg='leaves'] body::before {
+  content: '';
+  position: fixed;
+  inset: -200px 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('/bg/leaves.svg');
+  background-size: 220px 220px;
+  opacity: 0.55;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-bg='leaves']:not([data-motion='reduce']) body::before {
+    animation: drift 40s linear infinite;
+  }
+}
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 220px, 0);
+  }
+}
+:root[data-lowperf='true'] * {
+  box-shadow: none !important;
+}
