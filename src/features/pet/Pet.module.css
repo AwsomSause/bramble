@@ -55,12 +55,9 @@
   flex-direction: column;
   align-items: center;
   padding: 18px;
-  background: radial-gradient(120% 90% at 50% 0%, #f4e8f6, var(--surface));
+  background: radial-gradient(120% 90% at 50% 0%, var(--surface-alt), var(--surface));
   border: 1px solid var(--border);
   border-radius: 8px;
-}
-:global([data-theme='midnight']) .pet {
-  background: radial-gradient(120% 90% at 50% 0%, #2c1f36, var(--surface));
 }
 .sub {
   margin: 10px 0 0;
