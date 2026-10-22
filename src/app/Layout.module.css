@@ -117,3 +117,13 @@
     padding: 12px 4px;
   }
 }
+
+.coins {
+  font-weight: bold;
+  color: var(--text);
+  white-space: nowrap;
+}
+.coins:hover {
+  text-decoration: none;
+  color: var(--link);
+}
