@@ -53,7 +53,7 @@ The evidence is five "Save Page WE" captures. The saver stripped the scripts. Fu
 
 ## 4. Architecture
 
-React 18, TypeScript (strict) and Vite produce one static single-page app. React Router handles routing. The catalog is JSON files in the repo. A build step validates them and turns them into a compact index. There is no server.
+React 19 (the current stable release), TypeScript (strict) and Vite produce one static single-page app. React Router handles routing. The catalog is JSON files in the repo. A build step validates them and turns them into a compact index. There is no server.
 
 ```
 catalog/games/*.json ─┐
@@ -145,7 +145,7 @@ Non-interactive flags, such as `--link <url> --title …`, let Claude or a scrip
 
 For each embed URL, the checker fetches the response headers. It reports any `X-Frame-Options` value, and any CSP `frame-ancestors` rule that would stop the game loading inside Bramble.
 
-A blocked game stays in the catalog. Its player page shows **"This game opens on its own site"** with an external link instead of a broken frame.
+With `--write`, the results are saved to `catalog/embed-status.json` and the build merges them into each game's details as `embedBlocked`. A blocked game stays in the catalog. Its player page shows **"This game opens on its own site"** with an external link instead of a broken frame.
 
 The checker runs on demand and once a week in CI. It never fails a deploy, because the network can be flaky.
 
