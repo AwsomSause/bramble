@@ -27,3 +27,12 @@ test('an unknown route shows Page not found', async ({ page }) => {
   await page.goto('nowhere/at/all');
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
 });
+
+test('if a page file is missing (e.g. mid-deploy), a recovery message appears instead of a blank page', async ({ page }) => {
+  await page.goto('');
+  await page.route(/assets\/LibraryPage-.*\.js$/, (route) => route.fulfill({ status: 404, body: 'gone' }));
+  await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Games' }).click();
+  await expect(page.getByRole('alert')).toContainText(/something went wrong/i);
+  await expect(page.getByRole('button', { name: 'Reload page' })).toBeVisible();
+  await expect(page.getByRole('banner')).toBeVisible();
+});

@@ -33,3 +33,21 @@ export function analyzeFrameHeaders(headers: Headers, portalOrigin: string): 'ok
   }
   return 'ok';
 }
+
+/** Full verdict for a fetched embed: the final (post-redirect) host must be allowlisted too,
+ *  otherwise Bramble's CSP will refuse the frame. */
+export function classifyResponse(
+  finalUrl: string,
+  headers: Headers,
+  allowedHosts: string[],
+  portalOrigin: string,
+): { status: 'ok' | 'blocked'; note?: string } {
+  const host = new URL(finalUrl).hostname;
+  if (!allowedHosts.includes(host)) {
+    return {
+      status: 'blocked',
+      note: `redirects to ${host}, which isn't in catalog/sources.json — use the final address as the link, or allow that host`,
+    };
+  }
+  return { status: analyzeFrameHeaders(headers, portalOrigin) };
+}

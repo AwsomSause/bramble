@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { siteConfig } from '../config';
 import { Logo } from '../ui/Logo';
+import { ErrorBoundary } from './ErrorBoundary';
 import { SearchBox } from '../ui/SearchBox';
 import styles from './Layout.module.css';
 
@@ -112,7 +113,9 @@ export function Layout() {
         </nav>
       </div>
       <main id="main" ref={mainRef} tabIndex={-1} className={styles.main}>
-        <Outlet />
+        <ErrorBoundary resetKey={pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       <footer className={styles.footer}>
         <ul>

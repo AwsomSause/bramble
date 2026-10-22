@@ -59,6 +59,13 @@ describe('buildFrameAttrs', () => {
   });
 });
 
+test('an embed on the portal\'s own origin is treated like a file game (no allow-same-origin)', () => {
+  const g = make({ source: { type: 'embed', url: 'https://owner.github.io/other-game/' }, permissions: ['storage', 'popups'] });
+  const s = buildFrameAttrs(g, '/bramble/', 'https://owner.github.io').sandbox;
+  expect(s).toBe('allow-scripts');
+  expect(buildFrameAttrs(g, '/bramble/', 'https://bramble.example').sandbox).toContain('allow-same-origin');
+});
+
 describe('parseGameMessage', () => {
   test('accepts ready', () => expect(parseGameMessage({ type: 'bramble:ready' })).toEqual({ type: 'bramble:ready' }));
   test('accepts integer score', () =>

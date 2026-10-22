@@ -12,6 +12,8 @@ import {
   type GameDetails,
   type GameSummary,
 } from '../../src/catalog/schema';
+import { siteConfig } from '../../src/config';
+import { portalOriginFromRepo } from './embed-check';
 
 export type Issue = { level: 'error' | 'warn'; file: string; message: string };
 
@@ -54,13 +56,28 @@ export async function readEmbedStatus(root: string): Promise<Record<string, stri
   return r.ok && r.value && typeof r.value === 'object' ? (r.value as Record<string, string>) : {};
 }
 
+/** Hostnames Bramble itself is served from: the github.io host from siteConfig.repoUrl,
+ *  PORTAL_ORIGIN if set, and a custom domain from public/CNAME. */
+export async function readPortalHosts(root: string): Promise<string[]> {
+  const hosts = [new URL(portalOriginFromRepo(siteConfig.repoUrl)).hostname];
+  if (process.env.PORTAL_ORIGIN) hosts.push(new URL(process.env.PORTAL_ORIGIN).hostname);
+  const cname = join(root, 'public/CNAME');
+  if (await exists(cname)) {
+    const domain = (await readFile(cname, 'utf8')).trim().toLowerCase();
+    if (domain) hosts.push(domain);
+  }
+  return hosts;
+}
+
 export async function loadCatalog(
   root: string,
   extraDirs: string[] = [],
+  opts: { portalHosts?: string[] } = {},
 ): Promise<{ games: Game[]; issues: Issue[] }> {
   const issues: Issue[] = [];
   const loaded: Loaded[] = [];
   const hosts = new Set(await readHosts(root));
+  const portalHosts = new Set(opts.portalHosts ?? (await readPortalHosts(root)));
   const embedStatus = await readEmbedStatus(root);
 
   for (const dir of [root, ...extraDirs]) {
@@ -109,6 +126,13 @@ export async function loadCatalog(
     } else {
       const host = new URL(g.source.url).hostname;
       if (!hosts.has(host)) err(`embed host "${host}" is not in catalog/sources.json`);
+      if (portalHosts.has(host)) {
+        for (const p of g.permissions) {
+          if (EMBED_ONLY_PERMISSIONS.includes(p)) {
+            err(`permission "${p}" is not allowed: ${host} is the same site as Bramble, so it would bypass the sandbox`);
+          }
+        }
+      }
       if (embedStatus[g.slug] === 'blocked') warn('embed check: this site refuses to be framed; players will get a link');
     }
 

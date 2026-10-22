@@ -5,12 +5,13 @@
 import { writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { siteConfig } from '../src/config';
-import { analyzeFrameHeaders, portalOriginFromRepo, type EmbedStatus } from './lib/embed-check';
-import { loadCatalog } from './lib/catalog';
+import { classifyResponse, portalOriginFromRepo, type EmbedStatus } from './lib/embed-check';
+import { loadCatalog, readHosts } from './lib/catalog';
 
 const { values } = parseArgs({ options: { write: { type: 'boolean', default: false } } });
 const portalOrigin = process.env.PORTAL_ORIGIN ?? portalOriginFromRepo(siteConfig.repoUrl);
 const { games } = await loadCatalog(process.cwd());
+const allowedHosts = await readHosts(process.cwd());
 const embeds = games.filter((g) => g.source.type === 'embed');
 const results: Record<string, EmbedStatus> = {};
 
@@ -20,7 +21,9 @@ for (const g of embeds) {
   let status: EmbedStatus = 'unknown';
   try {
     const res = await fetch(g.source.url, { redirect: 'follow', signal: AbortSignal.timeout(10_000) });
-    status = analyzeFrameHeaders(res.headers, portalOrigin);
+    const verdict = classifyResponse(res.url || g.source.url, res.headers, allowedHosts, portalOrigin);
+    status = verdict.status;
+    if (verdict.note) console.log(`  note: ${verdict.note}`);
   } catch (e) {
     console.log(`  (could not reach ${g.source.url}: ${e instanceof Error ? e.message : e})`);
   }

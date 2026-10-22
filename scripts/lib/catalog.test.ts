@@ -100,6 +100,26 @@ describe('loadCatalog', () => {
     expect(errors((await loadCatalog(root)).issues)).toEqual([]);
   });
 
+  test('storage on an embed hosted on the portal\'s own site → error', async () => {
+    const root = makeRepo({
+      ...validTree,
+      'catalog/sources.json': '{"hosts":["owner.github.io"]}',
+      'catalog/games/e.json': entry({ slug: 'e', source: { type: 'embed', url: 'https://owner.github.io/x/' }, permissions: ['storage'] }),
+    });
+    const errs = errors((await loadCatalog(root, [], { portalHosts: ['owner.github.io'] })).issues);
+    expect(errs.some((e) => /same site as Bramble/.test(e.message))).toBe(true);
+  });
+
+  test('portal hosts include a custom domain from public/CNAME', async () => {
+    const root = makeRepo({
+      ...validTree,
+      'public/CNAME': 'bramble.fun\n',
+      'catalog/sources.json': '{"hosts":["bramble.fun"]}',
+      'catalog/games/e.json': entry({ slug: 'e', source: { type: 'embed', url: 'https://bramble.fun/g' }, permissions: ['storage'] }),
+    });
+    expect(errors((await loadCatalog(root)).issues).some((e) => /same site as Bramble/.test(e.message))).toBe(true);
+  });
+
   test('storage permission on file game → error', async () => {
     const root = makeRepo({ ...validTree, 'catalog/games/orbit-hop.json': entry({ permissions: ['storage'] }) });
     expect(errors((await loadCatalog(root)).issues).some((e) => /"storage" is only allowed for embed/.test(e.message))).toBe(

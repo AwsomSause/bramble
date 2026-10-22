@@ -18,6 +18,7 @@ This document records what we protect against, how, and where each protection is
 | 1 | **A game is malicious or buggy.** It's someone else's code. | Every game runs in `<iframe sandbox>`. That starts with everything off (forms, popups, top navigation, plugins, same-origin access) and adds back only `allow-scripts` plus what the game declares from an approved list. | `src/catalog/frame.ts`; `frame.test.ts`; e2e `security.spec.ts` ("sandboxed with scripts only") |
 | 2 | **A game reads Bramble's data.** Our own games are served from the same site, so they'd normally count as "same origin". | File games **never** get `allow-same-origin`, so the browser gives them a blank "null" origin. The builder strips it even if the catalog asks for it. | `frame.test.ts` (defense-in-depth case); e2e checks the game frame's origin is `null` and its storage access is blocked |
 | 3 | **A game navigates the whole page away** (to a phishing page, say). | `allow-top-navigation*` and `allow-popups-to-escape-sandbox` are never emitted. `allow-popups` is only allowed for embedded games on other sites. | `frame.test.ts`; schema and validator reject `popups`/`storage` on file games |
+| 3b | **An embed on Bramble's own site.** Other repos under the same `github.io` account share Bramble's origin. | Such embeds are treated like file games: `storage` and `popups` are rejected by the validator, and `allow-same-origin` is stripped at runtime if the embed's origin equals the page's. Custom domains in `public/CNAME` count too. | `catalog.test.ts` (same-site embed); `frame.test.ts` (portal-origin embed) |
 | 4 | **A game asks for camera, microphone, location and so on.** | The iframe's `allow` attribute (Permissions Policy) lists only `fullscreen`, `gamepad` and `autoplay`, and only when the game declares them. Everything else is denied. | `frame.test.ts` |
 | 5 | **Forged messages to the portal.** | Messages are accepted only when `event.source` is the game's own frame, and only in two exact shapes (`bramble:ready`, or `bramble:score` with an integer). Scores are capped at 0–1,000,000,000 and only ever stored. | `parseGameMessage` tests; `player.test.tsx` ("ignores message events whose source is not the iframe window") |
 | 6 | **Embedding unexpected sites.** | Embed links must be `https://`. Their host must be in `catalog/sources.json`, or the build fails. The page's CSP `frame-src` is generated from that same list, so the browser refuses any other frame too. | `scripts/lib/catalog.ts`; `catalog.test.ts`; `csp.test.ts` |
@@ -27,6 +28,7 @@ This document records what we protect against, how, and where each protection is
 | 10 | **Reverse tabnabbing via external links.** | Every `target="_blank"` link has `rel="noopener noreferrer"`. Game frames use `referrerpolicy="no-referrer"`. | `player.test.tsx` (blocked-embed link) |
 | 11 | **Supply chain.** | Exact versions in `package.json`, a committed lockfile, `npm ci` in CI, `npm audit --audit-level=high` in CI, and Dependabot weekly. Runtime dependencies are just React, React DOM, React Router and Zod. | `.github/workflows/ci.yml`; `.github/dependabot.yml` |
 | 12 | **Privacy.** | Nothing leaves the browser. No cookies, analytics, accounts or server. The About → Privacy section says so, and Settings → "Clear my data" deletes everything. | `settings.test.tsx`; About page test |
+| 12b | **A broken page or a code file missing mid-deploy blanks the site.** | An error boundary around every page shows "Something went wrong" with a Reload button. The schema rejects impossible values such as a `16:0` aspect ratio. | `ErrorBoundary.test.tsx`; e2e "page file is missing"; `schema.test.ts` |
 | 13 | **Crashes from bad stored data.** | Every read of storage is wrapped: bad JSON, wrong types, blocked storage or a full disk all fall back to defaults. | `storage.test.ts`; `stores.test.tsx`; `settings.test.tsx` |
 
 ## Known limits (accepted for now)
@@ -41,10 +43,10 @@ This document records what we protect against, how, and where each protection is
 
 These results were observed on 2026-10-22 on the `mvp` branch:
 
-- `npm test`: 178 unit and integration tests passed.
-- `npm run e2e`: 59 passed and 1 skipped (the keyboard test runs on desktop only), across desktop and mobile Chromium. This includes axe accessibility scans of 6 pages × 2 themes with zero serious or critical findings.
+- `npm test`: 189 unit and integration tests passed.
+- `npm run e2e`: 61 passed and 1 skipped (the keyboard test runs on desktop only), across desktop and mobile Chromium. This includes axe accessibility scans of 6 pages × 2 themes with zero serious or critical findings.
 - `npm audit --audit-level=high`: 0 vulnerabilities.
-- `npm run size`: 87 KB of initial JavaScript, gzipped (budget 150 KB).
+- `npm run size`: 87.2 KB of initial JavaScript, gzipped (budget 150 KB).
 
 ## Before Phase 6 (accounts, chat, AI)
 

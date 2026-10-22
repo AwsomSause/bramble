@@ -61,6 +61,11 @@ describe('gameSchema', () => {
   });
 });
 
+test('rejects aspect ratios with a zero side', () => {
+  expect(gameSchema.safeParse({ ...base, aspectRatio: '16:0' }).success).toBe(false);
+  expect(gameSchema.safeParse({ ...base, aspectRatio: '0:9' }).success).toBe(false);
+});
+
 describe('parseAspectRatio', () => {
   test('parses "4:3"', () => expect(parseAspectRatio('4:3')).toBeCloseTo(1.3333, 3));
   test('throws on "x"', () => expect(() => parseAspectRatio('x')).toThrow());

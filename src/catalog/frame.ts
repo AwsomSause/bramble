@@ -30,8 +30,13 @@ const ALLOW_FEATURES: Partial<Record<Permission, string>> = {
   autoplay: 'autoplay',
 };
 
-export function buildFrameAttrs(game: Game, baseUrl: string): FrameAttrs {
-  const isFile = game.source.type === 'file';
+/**
+ * `portalOrigin` is Bramble's own origin. An embed served from that same origin (e.g. another
+ * repo under the same github.io account) is treated like a file game: it must never get
+ * allow-same-origin, because that would let it reach into Bramble.
+ */
+export function buildFrameAttrs(game: Game, baseUrl: string, portalOrigin: string = window.location.origin): FrameAttrs {
+  const isFile = game.source.type === 'file' || new URL(game.source.url).origin === portalOrigin;
   const sandbox = ['allow-scripts'];
   const allow: string[] = [];
   for (const p of game.permissions) {

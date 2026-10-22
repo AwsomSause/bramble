@@ -57,7 +57,7 @@ export const gameSchema = z
     mobile: z.enum(['yes', 'partial', 'no']),
     aspectRatio: z
       .string()
-      .regex(/^\d+:\d+$/)
+      .regex(/^[1-9]\d*:[1-9]\d*$/, 'use two whole numbers above zero, like 16:9')
       .default('16:9'),
     permissions: z.array(z.enum(PERMISSIONS)).default([]),
     attribution: z.object({ author: z.string().min(1), url: z.url().optional() }),

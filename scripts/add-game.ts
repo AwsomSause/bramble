@@ -7,6 +7,7 @@ import { parseArgs } from 'node:util';
 import { CATEGORIES, CONTROLS, type Category, type Control } from '../src/catalog/schema';
 import { entryToJson, planAddGame, type AddGameInput } from './lib/add-game-core';
 import { loadCatalog, readHosts } from './lib/catalog';
+import { resolveAnswer } from './lib/prompt';
 
 const { values } = parseArgs({
   options: {
@@ -42,7 +43,7 @@ async function ask(question: string, current?: string, fallback?: string): Promi
   }
   const hint = fallback ? ` [${fallback}]` : '';
   const answer = (await rl.question(`${question}${hint}: `)).trim();
-  return answer || fallback || ask(question, undefined, fallback);
+  return resolveAnswer(answer, fallback) ?? ask(question, undefined, fallback);
 }
 
 async function main() {
