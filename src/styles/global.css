@@ -65,3 +65,8 @@ svg {
   animation: none !important;
   transition: none !important;
 }
+/* Links inside running text are underlined so they don't rely on color alone. */
+main p a:not([class]),
+main li a:not([class]):where(li p *, ul:not([class]) > li > *) {
+  text-decoration: underline;
+}

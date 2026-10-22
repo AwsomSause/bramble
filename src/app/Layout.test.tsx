@@ -41,6 +41,8 @@ test('skip link targets #main', () => {
 
 test('header has logo link home and footer links', () => {
   renderAt('/about');
-  expect(screen.getByRole('link', { name: 'Bramble home' })).toHaveAttribute('href', '/');
+  const home = screen.getByRole('link', { name: /^Bramble\s*home$/ });
+  expect(home).toHaveAttribute('href', '/');
+  expect(home).not.toHaveAttribute('aria-label');
   expect(screen.getByRole('contentinfo')).toHaveTextContent('Privacy');
 });

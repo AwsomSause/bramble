@@ -145,6 +145,13 @@ describe('loadCatalog', () => {
   });
 });
 
+test('extra dir entries may point at game files in the main games folder', async () => {
+  const root = makeRepo(validTree);
+  const extra = makeRepo({ 'catalog/games/fill.json': entry({ slug: 'fill', id: 'fill', thumbnail: undefined }) });
+  const { issues } = await loadCatalog(root, [extra]);
+  expect(errors(issues)).toEqual([]);
+});
+
 describe('buildCatalog', () => {
   test('excludes hidden games and writes details with embedBlocked from embed-status.json', async () => {
     const root = makeRepo({

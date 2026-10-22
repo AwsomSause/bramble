@@ -83,4 +83,8 @@ describe('Box', () => {
     render(<Box title="Recently played">x</Box>);
     expect(screen.getByRole('heading', { name: 'Recently played' })).toBeInTheDocument();
   });
+  test('is a region named by its heading', () => {
+    render(<Box title="Recently played">x</Box>);
+    expect(screen.getByRole('region', { name: 'Recently played' })).toBeInTheDocument();
+  });
 });

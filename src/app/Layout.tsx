@@ -77,8 +77,9 @@ export function Layout() {
       </a>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <Link to="/" className={styles.logo} aria-label="Bramble home">
+          <Link to="/" className={styles.logo}>
             <Logo />
+            <span className="visually-hidden"> home</span>
           </Link>
           <div className={styles.search}>
             <HeaderSearch />

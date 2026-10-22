@@ -100,8 +100,9 @@ export async function loadCatalog(
 
     if (g.source.type === 'file') {
       const target = resolve(dir, g.source.path);
+      const inRoot = resolve(root, g.source.path);
       if (!isInside(resolve(dir, 'games'), target)) err(`file path must be inside games/: ${g.source.path}`);
-      else if (!(await exists(target))) err(`file not found: ${g.source.path}`);
+      else if (!(await exists(target)) && !(dir !== root && (await exists(inRoot)))) err(`file not found: ${g.source.path}`);
       for (const p of g.permissions) {
         if (EMBED_ONLY_PERMISSIONS.includes(p)) err(`permission "${p}" is only allowed for embed games`);
       }

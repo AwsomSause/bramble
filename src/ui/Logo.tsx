@@ -33,7 +33,7 @@ export function Logo({ height = 44 }: { height?: number }) {
       {drupelets.map(([x, y], i) => (
         <circle key={`h${i}`} cx={x - 2} cy={y - 2.2} r="1.4" fill="#fff" opacity="0.7" />
       ))}
-      <g fontFamily="'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif" fontWeight="bold" fontSize="40">
+      <g aria-hidden="true" fontFamily="'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif" fontWeight="bold" fontSize="40">
         <text x="60" y="45" fill="none" stroke="#fff" strokeWidth="7" strokeLinejoin="round">Bramble</text>
         <text x="60" y="45" fill="url(#bl-text)" stroke="#2a1238" strokeWidth="1">Bramble</text>
         <text x="60" y="45" fill="url(#bl-gloss)" clipPath="inset(0 0 55% 0)">Bramble</text>

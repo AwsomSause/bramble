@@ -1,0 +1,24 @@
+{
+  "description": "A filler game used by the end-to-end tests.",
+  "category": "arcade",
+  "source": {
+    "type": "file",
+    "path": "games/orbit-hop/index.html"
+  },
+  "controls": [
+    "keyboard"
+  ],
+  "fullscreen": false,
+  "mobile": "yes",
+  "attribution": {
+    "author": "Bramble tests"
+  },
+  "license": {
+    "name": "Test fixture",
+    "permission": "Test fixture"
+  },
+  "addedAt": "2026-01-01",
+  "slug": "filler-20",
+  "title": "Filler 20",
+  "thumbnail": "thumbs/orbit-hop.svg"
+}
