@@ -1,3 +1,5 @@
+import { AppRoutes } from './app/routes';
+
 export default function App() {
-  return <h1>Bramble</h1>;
+  return <AppRoutes />;
 }

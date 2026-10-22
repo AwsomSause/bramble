@@ -1,0 +1,119 @@
+.skip {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 2px solid var(--focus);
+}
+.skip:focus {
+  top: 8px;
+}
+.header {
+  background: var(--header-grad);
+  border-bottom: 1px solid var(--border);
+}
+.headerInner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 10px 12px 8px;
+}
+.logo {
+  flex: none;
+  border-radius: 6px;
+}
+.search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.util {
+  display: flex;
+  gap: 12px;
+  font-size: 0.93rem;
+  white-space: nowrap;
+}
+.tabsWrap {
+  background: var(--header-grad);
+  border-bottom: 1px solid var(--border);
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 12px;
+  list-style: none;
+  overflow-x: auto;
+}
+.tab {
+  display: block;
+  margin-bottom: -1px;
+  padding: 7px 16px 6px;
+  font-weight: bold;
+  color: var(--link);
+  background: var(--tab-grad);
+  border: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
+  white-space: nowrap;
+}
+.tab[aria-current='page'] {
+  color: var(--text);
+  background: var(--surface);
+  border-bottom-color: var(--surface);
+  text-decoration: none;
+}
+.main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 14px 12px 24px;
+  min-height: 60vh;
+}
+.main:focus {
+  outline: none;
+}
+.footer {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 14px 12px 30px;
+  border-top: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+.footer ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 759px) {
+  .headerInner {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .search {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .util {
+    margin-left: auto;
+  }
+}
+@media (pointer: coarse) {
+  .tab {
+    padding-block: 12px;
+  }
+  .util a,
+  .footer a {
+    display: inline-block;
+    padding: 12px 4px;
+  }
+}
