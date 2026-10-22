@@ -1,0 +1,67 @@
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 10px;
+}
+.head h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.count {
+  color: var(--text-dim);
+}
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 10px;
+  padding: 0 0 8px;
+  list-style: none;
+  border-bottom: 1px solid var(--border);
+}
+.cats a {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.cats a[aria-current='page'] {
+  color: #fff;
+  background: var(--bramble);
+  text-decoration: none;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 0.93rem;
+}
+.controls select {
+  min-height: 30px;
+  margin-left: 6px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+}
+.empty {
+  padding: 24px 16px;
+  text-align: center;
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.empty p {
+  margin: 0 0 10px;
+}
+@media (pointer: coarse) {
+  .cats a {
+    padding-block: 12px;
+  }
+  .controls select {
+    min-height: 44px;
+  }
+}
