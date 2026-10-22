@@ -1,0 +1,27 @@
+# Weekly: checks whether linked games still allow being shown inside Bramble.
+name: Check embeds
+
+on:
+  schedule:
+    - cron: '17 15 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check-embeds -- --write
+      - uses: actions/upload-artifact@v7
+        with:
+          name: embed-status
+          path: catalog/embed-status.json

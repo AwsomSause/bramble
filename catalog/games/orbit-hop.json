@@ -1,0 +1,18 @@
+{
+  "slug": "orbit-hop",
+  "title": "Orbit Hop",
+  "description": "A berry circles the bramble bush. Hop between two rings to dodge thorns and grab golden seeds as the berry speeds up.",
+  "instructions": "Tap, click or press Space to hop between rings. P pauses, R restarts.",
+  "thumbnail": "thumbs/orbit-hop.svg",
+  "category": "arcade",
+  "tags": ["one-button", "berries"],
+  "source": { "type": "file", "path": "games/orbit-hop/index.html" },
+  "controls": ["keyboard", "mouse", "touch"],
+  "fullscreen": true,
+  "mobile": "yes",
+  "aspectRatio": "1:1",
+  "attribution": { "author": "Bramble" },
+  "license": { "name": "Original work", "permission": "Made for Bramble" },
+  "featured": true,
+  "addedAt": "2026-10-22"
+}

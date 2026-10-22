@@ -1,0 +1,19 @@
+/* "Midnight Bramble" — same token names, darker values. */
+:root[data-theme='midnight'] {
+  --page-bg: #161019;
+  --surface: #221a29;
+  --surface-alt: #2b2134;
+  --text: #f1ecf4;
+  --text-dim: #bfb3c9;
+  --border: #4a3d55;
+  --link: #9db7ff;
+  --link-visited: #d4a6f0;
+  --btn-grad: linear-gradient(#3a2f44, #2b2234);
+  --btn-grad-hover: linear-gradient(#463a52, #322840);
+  --btn-border: #5a4b67;
+  --btn-text: #f1ecf4;
+  --boxbar-grad: linear-gradient(#33283d, #2a2032);
+  --tab-grad: linear-gradient(#32283b, #261d2e);
+  --header-grad: linear-gradient(#2a1f33, #1d1523);
+  color-scheme: dark;
+}

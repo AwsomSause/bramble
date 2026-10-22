@@ -1,0 +1,35 @@
+/* Bramble design tokens — every color in the app comes from here. */
+:root {
+  --blackberry: #3b1d4f;
+  --bramble: #6b2d8b;
+  --raspberry: #c4194f;
+  --blueberry: #2a4fb5;
+  --leaf: #4f8a2b;
+  --cream: #fbf7f2;
+  --border: #cfcfd6;
+
+  --page-bg: #eeeef2;
+  --surface: #ffffff;
+  --surface-alt: #f7f6f9;
+  --text: #1f1a24;
+  --text-dim: #5c5566;
+  --link: var(--blueberry);
+  --link-visited: var(--bramble);
+  --focus: #f0a400;
+
+  --btn-grad: linear-gradient(#fdfdfd, #e6e6e6);
+  --btn-grad-hover: linear-gradient(#ffffff, #dedede);
+  --btn-border: #c6c6c6;
+  --btn-text: #222222;
+  --primary-grad: linear-gradient(#e0386a, #c4194f 55%, #a8123f);
+  --primary-border: #8f1037;
+  --boxbar-grad: linear-gradient(#f7f7f9, #e3e2e8);
+  --tab-grad: linear-gradient(#ffffff, #e7e5ec);
+  --header-grad: linear-gradient(#ffffff, #f3eef7);
+
+  --radius: 3px;
+  --content-max: 980px;
+  --sidebar: 300px;
+  --text-scale: 1;
+  --font: Arial, Helvetica, sans-serif;
+}
