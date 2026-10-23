@@ -116,6 +116,11 @@ export function Layout() {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/pet" className={styles.tab}>
+                Pet
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/shop" className={styles.tab}>
                 Shop
               </NavLink>

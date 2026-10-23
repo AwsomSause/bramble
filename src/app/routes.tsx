@@ -9,6 +9,7 @@ import { Layout } from './Layout';
 const LibraryPage = lazy(() => import('../features/library/LibraryPage'));
 const FavoritesPage = lazy(() => import('../features/library/FavoritesPage'));
 const PlayerPage = lazy(() => import('../features/player/PlayerPage'));
+const PetPage = lazy(() => import('../features/pet/PetPage'));
 const ShopPage = lazy(() => import('../features/shop/ShopPage'));
 const SettingsPage = lazy(() => import('../features/settings/SettingsPage'));
 const AboutPage = lazy(() => import('../features/about/AboutPage'));
@@ -23,6 +24,7 @@ export function AppRoutes() {
         <Route path="games" element={lazyPage(<LibraryPage />)} />
         <Route path="favorites" element={lazyPage(<FavoritesPage />)} />
         <Route path="play/:slug" element={lazyPage(<PlayerPage />)} />
+        <Route path="pet" element={lazyPage(<PetPage />)} />
         <Route path="shop" element={lazyPage(<ShopPage />)} />
         <Route path="settings" element={lazyPage(<SettingsPage />)} />
         <Route path="about" element={lazyPage(<AboutPage />)} />
