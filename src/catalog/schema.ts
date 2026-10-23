@@ -74,7 +74,7 @@ export type Game = z.output<typeof gameSchema>;
 export type GameSummary = Pick<
   Game,
   'id' | 'slug' | 'title' | 'category' | 'tags' | 'collection' | 'thumbnail' | 'mobile' | 'featured' | 'addedAt' | 'status'
->;
+> & { draft?: boolean };
 
 export type GameDetails = Game & { embedBlocked: boolean };
 

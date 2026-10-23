@@ -4,6 +4,7 @@ import { cleanup } from '@testing-library/react';
 import { resetStoreCaches } from '../lib/stores';
 import { resetCatalogCache } from '../catalog/load';
 import { resetSettingsCache } from '../features/settings/useSettings';
+import { resetDraftCache } from '../features/admin/drafts';
 import { resetShopCache } from '../features/shop/shopStore';
 
 afterEach(() => {
@@ -12,6 +13,7 @@ afterEach(() => {
   resetStoreCaches();
   resetCatalogCache();
   resetSettingsCache();
+  resetDraftCache();
   resetShopCache();
   vi.unstubAllGlobals();
 });

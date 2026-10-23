@@ -212,6 +212,10 @@
     hop();
   });
   $('startBtn').addEventListener('click', start);
+  var knock = $('berryKnock');
+  if (knock) knock.addEventListener('click', function () {
+    if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'bramble:knock' }, '*');
+  });
   $('againBtn').addEventListener('click', start);
   $('resumeBtn').addEventListener('click', resume);
   $('restartBtn').addEventListener('click', start);
