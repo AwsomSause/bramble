@@ -5,7 +5,7 @@ A berry-themed patch of browser games for friends, styled like a 2008-era websit
 - **Find games:** search, categories, tags, sorting, pages of 24.
 - **Keep track:** favorites, recently played, best scores. All are saved in your browser only.
 - **Play safely:** every game runs in a locked-down frame (see [docs/security.md](docs/security.md)).
-- **Add games easily:** one command for an HTML file, a folder, or a link (see [docs/adding-games.md](docs/adding-games.md)).
+- **Add games easily:** one command for an HTML file, a folder, or a link (see [docs/adding-games.md](docs/adding-games.md)), or a hidden owner-only panel (see [docs/admin.md](docs/admin.md)).
 - **Bramble Buddy:** adopt virtual pets with your own imported picture (see [docs/pet.md](docs/pet.md)).
 - **The Patch Shop:** earn play-money coins by playing, spend them on cursors and colour packs (see [docs/shop.md](docs/shop.md)).
 - **Make it yours:** Classic or Midnight theme, optional backgrounds, reduced motion, low-performance mode, text size.
@@ -30,7 +30,8 @@ It's a plain static website: no server, no database, no accounts. It's hosted fr
 | Command | What it does |
 |---|---|
 | `npm run dev` | Run the site locally while you work on it |
-| `npm run add-game` | Add a game (it asks you questions) |
+| `npm run add-game` | Add a game from the command line (it asks you questions) |
+| `npm run set-admin` | Set the hidden admin panel's login (see [docs/admin.md](docs/admin.md)) |
 | `npm run validate` | Check every game entry for mistakes |
 | `npm test` | Run the fast unit tests (about 180) |
 | `npm run e2e` | Run the browser tests, including accessibility scans. The first time, run `npx playwright install chromium` |

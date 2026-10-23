@@ -37,7 +37,7 @@ export function Thumb({ src, title }: { src?: string; title: string }) {
       {src && !failed ? (
         <img
           className={styles.img}
-          src={`${import.meta.env.BASE_URL}${src}`}
+          src={src.startsWith('data:') ? src : `${import.meta.env.BASE_URL}${src}`}
           alt=""
           loading="lazy"
           decoding="async"

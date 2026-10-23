@@ -16,6 +16,7 @@ export function GameCard({ game }: { game: GameSummary }) {
         <Thumb src={game.thumbnail} title={game.title} />
         <span className={styles.title}>{game.title}</span>
       </Link>
+      {game.draft && <span className={styles.draftBadge}>Draft</span>}
       <p className={styles.meta}>
         <span style={{ textTransform: 'capitalize' }}>{game.category}</span> · {MOBILE_LABEL[game.mobile]}
       </p>
