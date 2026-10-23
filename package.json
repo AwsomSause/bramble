@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
     "validate": "tsx scripts/validate.ts",
     "add-game": "tsx scripts/add-game.ts",
+    "set-admin": "tsx scripts/set-admin.ts",
     "check-embeds": "tsx scripts/check-embeds.ts",
     "size": "tsx scripts/size-check.ts",
     "format": "prettier --write ."
