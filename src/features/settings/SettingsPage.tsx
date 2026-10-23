@@ -47,7 +47,13 @@ export default function SettingsPage() {
     <div className={styles.page}>
       <h1>Settings</h1>
       <Choice legend="Theme" name="theme" value={s.theme} onPick={(theme) => update({ theme })}
-        options={[['classic', 'Classic'], ['midnight', 'Midnight Bramble']]} />
+        options={[
+          ['classic', 'Classic'],
+          ['midnight', 'Midnight Bramble'],
+          ['living', 'Living Room White'],
+          ['checker', 'Midnight Checker'],
+          ['blade', 'Blade Green'],
+        ]} />
       <Choice legend="Background" name="background" value={s.background} onPick={(background) => update({ background })}
         options={[['plain', 'Plain'], ['berries', 'Berry pattern'], ['leaves', 'Drifting leaves']]} />
       <Choice legend="Motion" name="motion" value={s.motion} onPick={(motion) => update({ motion })}

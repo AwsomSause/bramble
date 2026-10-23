@@ -17,3 +17,70 @@
   --header-grad: linear-gradient(#2a1f33, #1d1523);
   color-scheme: dark;
 }
+
+/* "Living Room White" — bright, airy, soft blue glow (Wii-era vibe, no console marks). */
+:root[data-theme='living'] {
+  --page-bg: #eef3f8;
+  --surface: #ffffff;
+  --surface-alt: #f1f6fb;
+  --text: #223042;
+  --text-dim: #5e7085;
+  --border: #cdd9e6;
+  --link: #1689c8;
+  --link-visited: #4a6fb5;
+  --focus: #16a0e0;
+  --btn-grad: linear-gradient(#ffffff, #e9f1f8);
+  --btn-grad-hover: linear-gradient(#ffffff, #dde9f4);
+  --btn-border: #bcd0e2;
+  --btn-text: #223042;
+  --primary-grad: linear-gradient(#49b7ef, #1689c8 60%, #0f6fa3);
+  --primary-border: #0d5f8c;
+  --boxbar-grad: linear-gradient(#f5fafe, #e3eef8);
+  --tab-grad: linear-gradient(#ffffff, #e7f1fa);
+  --header-grad: linear-gradient(#ffffff, #eaf4fc);
+}
+
+/* "Midnight Checker" — deep blue, calm and glassy (PS2-era vibe). */
+:root[data-theme='checker'] {
+  --page-bg: #05060e;
+  --surface: #11162b;
+  --surface-alt: #161d38;
+  --text: #e7ecff;
+  --text-dim: #9aa6cc;
+  --border: #2a3357;
+  --link: #8fb4ff;
+  --link-visited: #b39dff;
+  --btn-grad: linear-gradient(#1c243f, #141b33);
+  --btn-grad-hover: linear-gradient(#232d4f, #1a2240);
+  --btn-border: #39436b;
+  --btn-text: #e7ecff;
+  --primary-grad: linear-gradient(#3b63d6, #244bb5 60%, #1a3a93);
+  --primary-border: #16317d;
+  --boxbar-grad: linear-gradient(#1a2240, #121831);
+  --tab-grad: linear-gradient(#1a2240, #10162c);
+  --header-grad: linear-gradient(#0c1127, #060a1a);
+  color-scheme: dark;
+}
+
+/* "Blade Green" — dark slate with a bright energy-green accent (Xbox-era vibe). */
+:root[data-theme='blade'] {
+  --page-bg: #0e120d;
+  --surface: #191e17;
+  --surface-alt: #202619;
+  --text: #eaf2e6;
+  --text-dim: #a7b7a0;
+  --border: #39432f;
+  --link: #9fdc5a;
+  --link-visited: #c6e89a;
+  --focus: #8fd14a;
+  --btn-grad: linear-gradient(#273020, #1c2318);
+  --btn-grad-hover: linear-gradient(#2f3a26, #232b1d);
+  --btn-border: #475437;
+  --btn-text: #eaf2e6;
+  --primary-grad: linear-gradient(#8fd14a, #5f9e2c 60%, #4a7f22);
+  --primary-border: #3d6b1c;
+  --boxbar-grad: linear-gradient(#222a1b, #182013);
+  --tab-grad: linear-gradient(#222a1b, #161d10);
+  --header-grad: linear-gradient(#141a10, #0b0f09);
+  color-scheme: dark;
+}

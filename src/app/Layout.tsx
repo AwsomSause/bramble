@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { siteConfig } from '../config';
+import { useShop } from '../features/shop/shopStore';
 import { Logo } from '../ui/Logo';
 import { ErrorBoundary } from './ErrorBoundary';
 import { SearchBox } from '../ui/SearchBox';
@@ -58,6 +59,8 @@ function HeaderSearch() {
 
 export function Layout() {
   const { pathname } = useLocation();
+  const { wallet } = useShop();
+  const coins = wallet.coins;
   const mainRef = useRef<HTMLElement>(null);
   const first = useRef(true);
 
@@ -86,6 +89,9 @@ export function Layout() {
             <HeaderSearch />
           </div>
           <nav aria-label="Site" className={styles.util}>
+            <Link to="/shop" className={styles.coins} aria-label={`Patch Shop — ${coins} coins`}>
+              🪙 {coins}
+            </Link>
             <Link to="/settings">Settings</Link>
             <Link to="/about">About</Link>
           </nav>
@@ -112,6 +118,11 @@ export function Layout() {
             <li>
               <NavLink to="/pet" className={styles.tab}>
                 Pet
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/shop" className={styles.tab}>
+                Shop
               </NavLink>
             </li>
           </ul>

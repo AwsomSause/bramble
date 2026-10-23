@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const routes = ['', 'games', 'favorites', 'play/orbit-hop', 'pet', 'settings', 'about'];
+const routes = ['', 'games', 'favorites', 'play/orbit-hop', 'pet', 'shop', 'settings', 'about'];
 
 for (const theme of ['classic', 'midnight'] as const) {
   test.describe(`${theme} theme`, () => {
