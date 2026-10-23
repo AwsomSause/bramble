@@ -5,6 +5,7 @@ import { resetStoreCaches } from '../lib/stores';
 import { resetCatalogCache } from '../catalog/load';
 import { resetSettingsCache } from '../features/settings/useSettings';
 import { resetDraftCache } from '../features/admin/drafts';
+import { resetShopCache } from '../features/shop/shopStore';
 
 afterEach(() => {
   cleanup();
@@ -13,6 +14,7 @@ afterEach(() => {
   resetCatalogCache();
   resetSettingsCache();
   resetDraftCache();
+  resetShopCache();
   vi.unstubAllGlobals();
 });
 

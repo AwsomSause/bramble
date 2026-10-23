@@ -1,14 +1,9 @@
 .intro {
   margin: 0 0 14px;
   padding: 12px 14px;
-  background: linear-gradient(#fdf4fa, #f4e8f6);
-  border: 1px solid #e2cfe7;
+  background: linear-gradient(var(--surface), var(--surface-alt));
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  color: #3b1d4f;
-}
-:root[data-theme='midnight'] .intro {
-  background: linear-gradient(#2c1f36, #241a2c);
-  border-color: var(--border);
   color: var(--text);
 }
 .intro h1 {

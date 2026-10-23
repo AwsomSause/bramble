@@ -8,6 +8,7 @@ import { buildFrameAttrs, parseGameMessage, reportIssueUrl } from '../../catalog
 import { useGameDetails } from '../../catalog/load';
 import { parseAspectRatio, type GameDetails } from '../../catalog/schema';
 import { useBestScore, useFavorites, useRecent } from '../../lib/stores';
+import { awardPlay } from '../shop/shopStore';
 import { Box } from '../../ui/Box';
 import { Button, buttonClass } from '../../ui/Button';
 import { Icon } from '../../ui/Icon';
@@ -39,7 +40,10 @@ function Player({ game }: { game: GameDetails }) {
     if (blobSrc) URL.revokeObjectURL(blobSrc);
   }, [blobSrc]);
 
-  useEffect(() => push(game.slug), [game.slug, push]);
+  useEffect(() => {
+    push(game.slug);
+    awardPlay(game.slug); // play-money coins for the Patch Shop
+  }, [game.slug, push]);
 
   // Only trust messages that really come from this game's frame, and only our known shapes.
   const onMessage = useCallback(

@@ -2,7 +2,7 @@ import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 import { renderApp, stubCatalog, summary } from '../../test/renderApp';
-import { applySettings, DEFAULT_SETTINGS, getSettings } from './useSettings';
+import { applySettings, DEFAULT_SETTINGS, getSettings, resetSettingsCache } from './useSettings';
 
 const root = () => document.documentElement;
 
@@ -20,6 +20,10 @@ describe('applySettings', () => {
     expect(root().dataset.lowperf).toBe('true');
     applySettings({ ...DEFAULT_SETTINGS, background: 'berries', lowPerf: true }, false);
     expect(root().dataset.bg).toBe('berries');
+  });
+  test('a console theme is applied to data-theme', () => {
+    applySettings({ ...DEFAULT_SETTINGS, theme: 'blade' }, false);
+    expect(root().dataset.theme).toBe('blade');
   });
   test('text scale is applied as a CSS variable', () => {
     applySettings({ ...DEFAULT_SETTINGS, textScale: 1.3 }, false);
@@ -40,6 +44,10 @@ describe('SettingsPage', () => {
     expect(getSettings()).toEqual(DEFAULT_SETTINGS);
     localStorage.setItem('bramble:v1:settings', '{bad');
     expect(getSettings()).toEqual(DEFAULT_SETTINGS);
+    // a valid console theme round-trips
+    localStorage.setItem('bramble:v1:settings', JSON.stringify({ ...DEFAULT_SETTINGS, theme: 'checker' }));
+    resetSettingsCache();
+    expect(getSettings().theme).toBe('checker');
   });
   test('Clear my data asks for confirmation and then empties favorites', async () => {
     localStorage.setItem('bramble:v1:favorites', '["orbit-hop"]');
